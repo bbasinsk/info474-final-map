@@ -3,12 +3,11 @@
   const height = 1220;
 
   window.onload = async function() {
-    // load states lived data
-    // statesLivedData = await d3.csv("data/stateslived.csv");
-    // citiesLivedData = await d3.csv("data/cities-lived.csv");
-    // statesGeoJSONData = await d3.json("data/us-states.json");
-    streetsGeoJSONData = await d3.json("data/street-network.geojson");
-    speedsGeoJSONData = await d3.json("data/seattle-month-box.geojson");
+    // load data
+    [streetsGeoJSONData, speedsGeoJSONData] = await Promise.all([
+      d3.json("data/street-network.geojson"),
+      d3.json("data/seattle-month-box.geojson")
+    ]);
 
     makeMapPlot();
   };
