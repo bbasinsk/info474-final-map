@@ -8,6 +8,11 @@ body {
   padding: 12px 36px;
 }
 
+#hover-hint {
+  padding: 12px 36px;
+  font-size: 14px;
+}
+
 #loading {
   color: #ddd;
   margin: 480px;

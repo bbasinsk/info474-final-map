@@ -53,16 +53,19 @@
       .style("fill", "none")
       .on("mouseover", data => {
         tooltip
+          .transition()
+          .duration(200)
+          .style("opacity", 1)
+          .style("left", d3.event.pageX + 10 + "px")
+          .style("top", d3.event.pageY + 10 + "px");
+        tooltip
           .html(
             `<b>${data.properties["R_ADRS_FROM"]} ${
               data.properties["ORD_STREET_NAME"]
             }</b><br/>${data.properties["SND_FEACODE"]}`
           )
-          .style("opacity", 1)
           .style("display", "flex")
-          .style("flex-direction", "column")
-          .style("left", d3.event.pageX + 10 + "px")
-          .style("top", d3.event.pageY + 10 + "px");
+          .style("flex-direction", "column");
       })
       .on("mouseout", d => {
         tooltip.style("opacity", 0).style("display", "none");
