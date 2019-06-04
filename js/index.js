@@ -16,6 +16,8 @@
     //remove loading indicator
     d3.select("#loading").style("display", "none");
 
+    drawLegend();
+
     // define the projection type we want
     let projection = d3
       .geoMercator()
@@ -86,5 +88,70 @@
       .style("stroke-width", "1")
       .style("fill", "none")
       .style("pointer-events", "none");
+
+    function drawLegend() {
+      var key = d3
+        .select("body")
+        .append("svg")
+        .attr("width", 300)
+        .attr("height", 50);
+
+      var legend = key
+        .append("defs")
+        .append("svg:linearGradient")
+        .attr("id", "gradient")
+        .attr("x1", "0%")
+        .attr("y1", "100%")
+        .attr("x2", "100%")
+        .attr("y2", "100%")
+        .attr("spreadMethod", "pad");
+
+      legend
+        .append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "#1a1100")
+        .attr("stop-opacity", 1);
+
+      legend
+        .append("stop")
+        .attr("offset", "50%")
+        .attr("stop-color", "#ffaa00")
+        .attr("stop-opacity", 1);
+
+      legend
+        .append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#ffeecc")
+        .attr("stop-opacity", 1);
+
+      key
+        .append("rect")
+        .attr("width", 300)
+        .attr("height", 20)
+        .style("fill", "url(#gradient)")
+        .attr("transform", "translate(0,10)");
+
+      var y = d3
+        .scaleLinear()
+        .range([280, 20])
+        .domain([90, 10]);
+
+      var yAxis = d3
+        .axisBottom()
+        .scale(y)
+        .ticks(6);
+
+      key
+        .append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(0,30)")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("axis title");
+    }
   }
 })();
